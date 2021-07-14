@@ -1,0 +1,3 @@
+jwt:
+  secret: qwertyuiop
+  expiration: 60*60*6
