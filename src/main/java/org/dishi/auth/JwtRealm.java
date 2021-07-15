@@ -7,13 +7,13 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.dishi.domain.User;
 import org.dishi.service.ShiroService;
-import org.dishi.utils.JwtUtil;
+import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
+@Component
 public class JwtRealm extends AuthorizingRealm {
 
     private final ShiroService shiroService;
-    private final JwtUtil jwtUtil;
 
     @Override
     public boolean supports(AuthenticationToken token) {
