@@ -3,11 +3,14 @@ package org.dishi.auth;
 import lombok.AllArgsConstructor;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.dishi.domain.User;
 import org.dishi.service.ShiroService;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @AllArgsConstructor
 @Component
@@ -25,7 +28,13 @@ public class JwtRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        User user = (User) principalCollection.getPrimaryPrincipal();
+        //用户权限列表
+        Set<String> permsSet = shiroService.getUserPermissions(user);
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(permsSet);
+        return info;
     }
 
     /**

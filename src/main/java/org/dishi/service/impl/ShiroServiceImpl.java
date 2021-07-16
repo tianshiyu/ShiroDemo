@@ -9,6 +9,9 @@ import org.dishi.utils.JwtUtil;
 import org.dishi.utils.ShiroUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @Service
 public class ShiroServiceImpl implements ShiroService {
@@ -30,5 +33,12 @@ public class ShiroServiceImpl implements ShiroService {
     public User getByToken(String token) {
         String username = jwtUtil.getUserNameFromToken(token);
         return userService.findByName(username);
+    }
+
+    @Override
+    public Set<String> getUserPermissions(User user) {
+        Set<String> s = new HashSet<>();
+        s.add("admin");
+        return s;
     }
 }
